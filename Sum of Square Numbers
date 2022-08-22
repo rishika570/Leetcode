@@ -1,0 +1,19 @@
+class Solution {
+    public boolean judgeSquareSum(int c) {
+        int a=(int)Math.sqrt(c);
+        long l=0;
+        long r=a;
+        while(l<=r){
+            long sum=l*l+r*r;
+            if(sum==c){
+                return true;
+            }
+            else if(sum>c){
+                r--;
+            }
+            else{
+                l++;
+            }
+        }
+        return false;
+    }}
