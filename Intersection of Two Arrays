@@ -1,0 +1,25 @@
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        //ArrayList<Integer> al=new ArrayList<>();
+        HashMap<Integer,Boolean> map=new HashMap<>();
+        int c=0;
+       for(int i=0;i<nums1.length;i++){
+           for(int j=0;j<nums2.length;j++){
+               if(nums1[i]==nums2[j]){
+                   if(!map.containsKey(nums1[i])){
+                     map.put(nums1[i],true); 
+                       c++;
+                   }
+                   }
+               }
+           }
+       
+        int a[]=new int[c];
+        int k=0;
+        for(Map.Entry<Integer,Boolean> entry:map.entrySet()){
+            a[k++]=entry.getKey();
+        }
+        
+        return a;
+    }
+}
