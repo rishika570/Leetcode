@@ -1,0 +1,21 @@
+class Solution {
+    public void rotate(int[] nums, int k) {
+        while(k>nums.length){
+            k=k-nums.length;
+        }
+        int index=nums.length-k;
+        reverse(index,nums.length,nums);
+        reverse(0,index,nums);
+        reverse(0,nums.length,nums);
+    }
+    public void reverse(int start,int end,int[] nums){
+        
+        while(start<=end-1){
+            int temp=nums[start];
+            nums[start]=nums[end-1];
+            nums[end-1]=temp;
+            start++;
+            end--;
+        }
+    }
+}
