@@ -1,0 +1,35 @@
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int ind=0;
+        int p=0;
+        for(int i=nums.length-2;i>=0;i--){
+            if(nums[i]<nums[i+1]){
+                ind=i;
+            break;}
+            }
+        int q=0;
+        for(int i=nums.length-1;i>ind;i--){
+            if(nums[i]>nums[ind]){
+                q=i;
+                break;}}
+                int temp=nums[ind];
+                nums[ind]=nums[q];
+                nums[q]=temp;
+        int low=0,high=0;
+        if(ind==0 && q==0){
+            low=0;
+           high=nums.length-1;
+        }
+        else{
+       low=ind+1;
+        high=nums.length-1;}
+        while(low<high){
+            int temp1=nums[low];
+            nums[low]=nums[high];
+            nums[high]=temp1;
+            low++;
+            high--;
+        }
+        
+    }
+}
