@@ -1,0 +1,34 @@
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        String str[]=s.split(" ");
+        if(pattern.length()!=str.length )return false;
+        for(String i:str)
+            System.out.println(i);
+        HashMap<Character,String> map=new HashMap<>();
+        for(int i=0;i<pattern.length();i++){
+            if(map.containsKey(pattern.charAt(i))){
+                if(map.get(pattern.charAt(i)).equals((str[i]))){
+                  continue;
+                }
+                else
+                    return false;
+            }
+            else{
+                map.put(pattern.charAt(i),str[i]);
+            }
+        }
+        HashSet<String> set=new HashSet<>();
+        for(int j=0;j<pattern.length();j++)
+            set.add(pattern.charAt(j)+"");
+        int count=set.size();
+        set.clear();
+        for(Map.Entry<Character,String> nmap: map.entrySet())
+        {
+            set.add(nmap.getValue());
+        }
+        System.out.println(count+" "+set.size());
+        if(count==set.size())
+        return true;
+        return false;
+    }
+}
