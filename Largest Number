@@ -1,0 +1,19 @@
+class Solution {
+    public String largestNumber(int[] nums) {
+        String a[]=new String[nums.length];
+        for(int i=0;i<nums.length;i++){
+            a[i]=Integer.toString(nums[i]);
+        }
+        String res="";
+        List<String> list=Arrays.asList(a);
+        Collections.sort(list,new Comparator<String>(){
+            public int compare(String x,String y){
+                String xy=x+y;
+                String yx=y+x;
+                return xy.compareTo(yx)>0?-1:1;
+            }
+        });
+         res=String.join("",list);
+        return res.startsWith("0")?"0":res;
+    }
+}
