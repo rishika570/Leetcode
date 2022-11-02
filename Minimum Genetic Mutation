@@ -1,0 +1,40 @@
+class Solution {
+    public int minMutation(String start, String end, String[] bank) {
+        if(start.equals(end)){
+            return 0;
+        }
+        int count=0;
+        HashSet<String> bankset=new HashSet<>();
+        for(int i=0;i<bank.length;i++){
+            bankset.add(bank[i]);
+        }
+        char [] charset={'A','C','G','T'};
+       Queue<String> q=new LinkedList<>();
+        HashSet<String> vis=new HashSet<>();
+        q.offer(start);
+        vis.add(start);
+        while(!q.isEmpty()){
+            int size=q.size();
+            while(size-->0){
+                String curr=q.poll();
+                if(curr.equals(end))
+                    return count;
+                char [] ch=curr.toCharArray();
+                for(int i=0;i<ch.length;i++){
+                    char old=ch[i];
+                    for(char c:charset){
+                        ch[i]=c;
+                        String s=new String(ch);
+                        if(!vis.contains(s) && bankset.contains(s)){
+                            q.offer(s);
+                            vis.add(s);
+                        }
+                    }
+                    ch[i]=old;
+                }
+            }
+            count++;
+        }
+        return -1;
+    }
+}
