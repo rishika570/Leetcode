@@ -1,0 +1,40 @@
+class Solution {
+    public List<String> commonChars(String[] words) {
+        Map<Character,Integer> map = new HashMap();
+        Map<Character,Integer> compare = new HashMap();
+        List<String> result = new ArrayList();
+        for(int i=0;i<words[0].length();i++){
+             Character key = words[0].charAt(i);
+             if(map.containsKey(words[0].charAt(i))) map.put(key,map.get(key)+1);
+             else map.put(key,1);
+        }
+
+        for(String word: words){
+            compare = new HashMap();
+            for(int i=0;i<word.length();i++){
+                Character key = word.charAt(i);
+                if(map.containsKey(key)){
+                    if(compare.containsKey(key)){
+                        compare.put(key,compare.get(key)+1);
+                    }
+                     else{
+                    compare.put(key,1);
+                    }
+                    int x = map.get(key);
+                    if(x-1==0) map.remove(key);
+                    else map.put(key,x-1);
+                }
+               
+            }
+            map= compare;
+        }
+        for(Map.Entry<Character,Integer> entry: compare.entrySet()){
+            int x = entry.getValue();
+            while(x!=0){
+                result.add(entry.getKey()+"");
+                x--;
+            }
+        }
+        return result;
+    }
+}
