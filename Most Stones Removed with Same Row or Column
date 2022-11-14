@@ -1,0 +1,24 @@
+class Solution {
+    public int removeStones(int[][] stones) {
+      Set<int[]> vis=new HashSet<>();
+        int ans=0;
+        for(int[] curr:stones){
+            if(!vis.contains(curr)){
+                dfs(curr,vis,stones);
+                ans++;
+            }
+        }
+        return stones.length-ans;
+    }
+    public void dfs(int[] curr,Set<int[]> vis,int[][] stones){
+        vis.add(curr);
+        for(int[] stone:stones){
+            if(!vis.contains(stone)){
+                if(stone[0]==curr[0] || stone[1]==curr[1]){
+                    dfs(stone,vis,stones);
+                }
+            }
+                
+        }
+    }
+}
