@@ -1,0 +1,28 @@
+class Solution {
+    public boolean isUgly(int n) {
+        boolean flag=false;
+        int n1=0;
+        while(n!=0){
+        if(n%2==0){
+            flag=true;
+            n1=2;
+        }
+            else if(n%3==0){
+            flag=true;
+            n1=3;
+            }
+            else if(n%5==0){
+            flag=true;
+            n1=5;}
+            else if(n==1){
+                flag=true;
+                break;
+            }
+            else{
+                flag=false;
+                break;
+            }
+            n=n/n1;}
+        return flag;
+    }
+}
