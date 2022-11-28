@@ -1,0 +1,25 @@
+class Solution {
+    public List<List<Integer>> findWinners(int[][] matches) {
+        int [] count = new int[100001];
+        for(int [] arr:matches){
+            count[arr[0]] = 2;
+        }
+        for(int [] arr:matches){
+            if(count[arr[1]]!=1 && count[arr[1]]!=-1) count[arr[1]]= 1;
+            else count[arr[1]]=-1;
+            
+        }
+        List<Integer> win = new ArrayList<>();
+        List<Integer> loss = new ArrayList<>();
+        for(int i = 0;i<100001;i++){
+            if(count[i]==2)win.add(i);
+            else if (count[i]==1) {
+                loss.add(i);
+            }
+        }
+        List<List<Integer>> result = new ArrayList<>();
+        result.add(win);
+        result.add(loss);
+        return result;  
+    }
+}
