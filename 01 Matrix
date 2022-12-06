@@ -1,0 +1,39 @@
+class Solution {
+    public int[][] updateMatrix(int[][] mat) {
+        int m=mat.length;
+        int n=mat[0].length;
+        int dir[][]={{0,1},{1,0},{0,-1},{-1,0}};
+        int[][] res=new int[m][n];
+        Queue<int[]> q=new LinkedList<>();
+        int i,j,d1;
+        for(i=0;i<m;i++){
+            for(j=0;j<n;j++){
+                if(mat[i][j]==0){
+                    res[i][j]=0;
+                    q.add(new int[]{i,j,0});
+                }
+                else{
+                    res[i][j]=Integer.MAX_VALUE;
+                }
+            }
+        }
+        while(!q.isEmpty()){
+            int size=q.size();
+            while(size-->0){
+                int[] curr=q.poll();
+                for(int[] d:dir){
+                    i=curr[0]+d[0];
+                    j=curr[1]+d[1];
+                    d1=curr[2];
+                    if(i>=0 && i<m && j>=0 && j<n && res[i][j]>d1+1){
+                        res[i][j]=d1+1;
+                        q.add(new int[]{i,j,d1+1});
+                    }
+                }
+            }
+        }
+        return res;
+        
+    }
+    
+}
