@@ -1,0 +1,39 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    HashSet<Integer> set=new HashSet<>();
+    public int findSecondMinimumValue(TreeNode root) {
+        preorder(root);
+        ArrayList<Integer> list=new ArrayList<>();
+        for(int i:set){
+            list.add(i);
+        }
+        Collections.sort(list);
+        if(set.size()<2){
+            return -1;
+        }
+        return list.get(1);
+    }
+    public void preorder(TreeNode root){
+        if(root==null){
+            return;
+        }
+        if(!set.add(root.val)){
+        set.add(root.val);}
+        preorder(root.left);
+        preorder(root.right);
+    }
+    }
