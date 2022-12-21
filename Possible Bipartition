@@ -1,0 +1,31 @@
+class Solution {
+    public boolean possibleBipartition(int n, int[][] dislikes) {
+        int[] color=new int[n+1];
+        List<Integer>[] list=new List[n+1];
+        for(int i=0;i<=n;i++){
+            list[i]=new ArrayList<>();
+        }
+        for(int[] v:dislikes){
+            list[v[0]].add(v[1]);
+            list[v[1]].add(v[0]);
+        }
+        for(int i=1;i<=n;i++){
+            if(color[i]==0){
+                Queue<Integer> q=new LinkedList<>();
+                q.add(i);
+                color[i]=1;
+                while(q.size()!=0){
+                    int top=q.poll();
+                    for(int neighbour:list[top]){
+                        if(color[neighbour]==color[top]) return false;
+                        if(color[neighbour]==0){
+                            color[neighbour]=-color[top];
+                            q.add(neighbour);
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }       
+}
