@@ -1,0 +1,19 @@
+class Solution {
+    public int minDeletionSize(String[] strs) {
+      int worlen=strs[0].length();
+      int len=strs.length;
+      int c=0;
+        for(int i=0;i<worlen;i++){
+            char prev=strs[0].charAt(i);
+            for(int j=1;j<len;j++){
+                char ch=strs[j].charAt(i);
+                if(ch<prev){
+                    c++;
+                    break;
+                }
+                prev=ch;
+            }
+        }
+        return c;
+    }
+}
