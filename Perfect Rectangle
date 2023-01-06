@@ -1,0 +1,52 @@
+class Solution {
+    public boolean isRectangleCover(int[][] rectangles) {
+        if(rectangles.length==0 || rectangles[0].length==0){
+            return false;
+        }
+        HashSet<String> set=new HashSet<>();
+        int area=0;
+        int minX=Integer.MAX_VALUE;
+        int minY=Integer.MAX_VALUE;
+        int maxA=Integer.MIN_VALUE;
+        int maxB=Integer.MIN_VALUE;
+        for(int[] r:rectangles){
+            int x=r[0];
+            int y=r[1];
+            int a=r[2];
+            int b=r[3];
+            area+=(x-a)*(y-b);
+            minX=Math.min(x,minX);
+            minY=Math.min(y,minY);
+            maxA=Math.max(a,maxA);
+            maxB=Math.max(b,maxB);
+            String bl=getHash(x,y);
+            String br=getHash(a,y);
+            String tl=getHash(x,b);
+            String tr=getHash(a,b);
+          
+            check(set,bl);
+            check(set,br);
+            check(set,tl);
+            check(set,tr);
+        }
+        String fullbl=getHash(minX,minY);
+        String fullbr=getHash(maxA,minY);
+        String fulltl=getHash(minX,maxB);
+        String fulltr=getHash(maxA,maxB);
+        if(set.size()!=4 || !set.contains(fullbl) || !set.contains(fullbr) || !set.contains(fulltl) || !set.contains(fulltr)) return false;
+        int fullarea=(minX-maxA)*(minY-maxB);
+        return area==fullarea;
+        
+    }
+    public String getHash(int x,int y){
+        return x+":"+y;
+    }
+    public void check(HashSet<String> set,String hash){
+        if(!set.contains(hash)){
+            set.add(hash);
+        }
+        else{
+            set.remove(hash);
+        }
+    }
+}
