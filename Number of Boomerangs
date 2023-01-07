@@ -1,0 +1,25 @@
+class Solution {
+    public int numberOfBoomerangs(int[][] points) {
+        if(points.length<3){
+            return 0;
+        }
+        HashMap<Integer,Integer> map=new HashMap<>();
+        int c=0;
+        for(int i=0;i<points.length;i++){
+            for(int j=0;j<points.length;j++){
+                  if(i==j) continue; 
+               int d=dis(points[i],points[j]); 
+                map.put(d,map.getOrDefault(d,0)+1);
+                }
+            for(int val:map.values()){
+            c+=val*(val-1);
+        }
+            map.clear();
+            }
+        
+        return c;
+    }
+    public int dis(int[] a,int[] b){
+        return (a[0]-b[0])*(a[0]-b[0])+(a[1]-b[1])*(a[1]-b[1]);
+    }
+}
