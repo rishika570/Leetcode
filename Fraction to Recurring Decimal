@@ -1,0 +1,45 @@
+class Solution {
+    StringBuilder sb;
+    public String fractionToDecimal(int numerator, int denominator) {
+        if(numerator==0){
+            return "0";
+        }
+        sb=new StringBuilder();
+        sign(numerator,denominator);
+        divide(numerator,denominator);
+        return sb.toString();
+    }
+    public void sign(int num,int den){
+        if((num>0 && den>0) || (num<0 && den<0)){
+            return;
+        }
+           sb.append("-");
+    }
+    public void divide(int num,int den){
+        long n=Math.abs((long)num);
+        long d=Math.abs((long)den);
+        sb.append(n/d);
+        n%=d;
+        if(n==0){
+            return;
+        }
+        append(n,d);
+    }
+    public void append(long num,long den){
+        HashMap<Long,Integer> map=new HashMap<>();
+        sb.append(".");
+        while(num!=0){
+            num*=10;
+            sb.append(num/den);
+            num%=den;
+            if(map.containsKey(num)){
+                sb.insert(map.get(num),"(");
+                sb.append(")");
+                return;
+            }
+            else{
+                map.put(num,sb.length());
+            }
+        }
+    }
+}
