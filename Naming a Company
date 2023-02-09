@@ -1,0 +1,21 @@
+class Solution {
+    public long distinctNames(String[] ideas) {
+        List<String> a[]=new ArrayList[26];
+        for(int i=0;i<26;i++){
+            a[i]=new ArrayList<>();
+        }
+        for(int i=0;i<ideas.length;i++){
+            a[ideas[i].charAt(0)-'a'].add(ideas[i].substring(1));
+        }
+        long count=0;
+        for(int i=0;i<25;i++){
+            for(int j=i+1;j<26;j++){
+                Set<String> set=new HashSet<>();
+                set.addAll(a[i]);
+                set.addAll(a[j]);
+                count+=(a[i].size()-set.size())*(a[j].size()-set.size());
+            }
+        }
+        return count*2;
+    }
+}
