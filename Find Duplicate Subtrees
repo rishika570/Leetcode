@@ -1,0 +1,38 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+        List<TreeNode> res=new ArrayList<>();
+        HashMap<String,Integer> mp=new HashMap<>();
+        solve(res,mp,root);
+        return res;
+    }
+    public String solve(List<TreeNode> res,HashMap<String,Integer> mp,TreeNode root){
+        if(root==null){
+            return "";
+        }
+        String left=solve(res,mp,root.left);
+        String right=solve(res,mp,root.right);
+        int curr=root.val;
+        String str=curr+"-"+left+"-"+right;
+        System.out.println(str);
+        if(mp.getOrDefault(str,0)==1){
+            res.add(root);
+        }
+        mp.put(str,mp.getOrDefault(str,0)+1);
+        return str;
+    }
+}
