@@ -1,0 +1,28 @@
+class Solution {
+    public boolean canReach(int[] arr, int start) {
+      boolean vis[]=new boolean[arr.length];
+        vis[start]=true;
+        Queue<Integer> q=new LinkedList<>();
+        q.add(start);
+        while(!q.isEmpty()){
+            int size=q.size();
+            for(int i=0;i<size;i++){
+                int curr=q.poll();
+                if(arr[curr]==0)
+                    return true;
+         List<Integer> jumptoindexes=new ArrayList<>();
+                jumptoindexes.add(curr+arr[curr]);
+                jumptoindexes.add(curr-arr[curr]);
+                for(int m:jumptoindexes){
+                    if(m>=0 && m<arr.length && !vis[m]){
+                        vis[m]=true;
+                        q.add(m);
+                    }
+                }
+                jumptoindexes.clear();
+            }
+            
+    }
+        return false;
+}
+}
