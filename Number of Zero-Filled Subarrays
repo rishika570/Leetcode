@@ -1,0 +1,19 @@
+class Solution {
+    public long zeroFilledSubarray(int[] nums) {
+        long c=0;
+		int i=0;
+		long c1=0;
+		while(i<nums.length){
+		    if(nums[i]==0){
+		        c1++;
+		    }
+		    else{
+		        c+=(c1*(c1+1)/2);
+		        c1=0;
+		    }
+		    i++;
+		}
+		c+=(c1*(c1+1)/2);
+		return c;
+    }
+}
