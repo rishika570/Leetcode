@@ -1,0 +1,58 @@
+class WordDictionary {
+    class Trie{
+        boolean isword;
+        Trie[] children;
+    public Trie(){
+        isword=false;
+        children=new Trie[26];
+    }
+    }
+    Trie root;
+    public WordDictionary() {
+        root=new Trie();
+    }
+    
+    public void addWord(String word) {
+        Trie node=root;
+        for(int i=0;i<word.length();i++){
+            int idx=word.charAt(i)-'a';
+            if(node.children[idx]==null){
+                node.children[idx]=new Trie();
+            }
+            node=node.children[idx];
+        }
+        node.isword=true;
+    }
+    
+    public boolean search(String word) {
+      return searching(word,root,0);  
+    }
+    public boolean searching(String word,Trie node,int wordidx){
+        if(node==null){
+            return false;
+        }
+        for(int i=wordidx;i<word.length();i++){
+            int idx=word.charAt(i)-'a';
+            if(idx==-51){ // ('.' - 'a') = -51
+                for(int j=0;j<node.children.length;j++){
+                    if(searching(word,node.children[j],i+1)){
+                        return true;
+                    }
+                }
+                return false;
+            }
+            if(node.children[idx]==null){
+                return false;
+            }
+            node=node.children[idx];
+        }
+        return node.isword;
+    }
+}
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary obj = new WordDictionary();
+ * obj.addWord(word);
+ * boolean param_2 = obj.search(word);
+ */
