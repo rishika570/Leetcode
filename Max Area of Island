@@ -1,0 +1,47 @@
+class Solution {
+    public int maxAreaOfIsland(int[][] grid) {
+       int n=grid.length;
+        int m=grid[0].length;
+       int[][] vis=new int[n][m];
+      int max=0;
+      int count=0;
+      for(int i=0;i<n;i++){
+          for(int j=0;j<m;j++){
+              if(vis[i][j]==0 && grid[i][j]==1){
+                  count=bfs(grid,vis,i,j,0);
+              }
+              max=Math.max(max,count);
+          }
+      }
+      return max;
+    }
+    public static int bfs(int[][] grid,int[][] vis,int i,int j ,int count){
+        vis[i][j]=1;
+        Queue<Pair> q=new LinkedList<>();
+        q.add(new Pair(i,j));
+        count++;
+        int[] dirrow={-1,1,0,0};
+        int[] dircol={0,0,-1,1};
+        while(!q.isEmpty()){
+            Pair curr=q.poll();
+            for(int k=0;k<4;k++){
+                int nrow=curr.first+dirrow[k];
+                int ncol=curr.second+dircol[k];
+                if(nrow>=0 && nrow<grid.length && ncol>=0 && ncol<grid[0].length && vis[nrow][ncol]==0 && grid[nrow][ncol]==1){
+                    count++;
+                    vis[nrow][ncol]=1;
+                    q.add(new Pair(nrow,ncol));
+                }
+            }
+        }
+        return count;
+    }
+}
+class Pair{
+    int first;
+    int second;
+    Pair(int f,int s){
+        this.first=f;
+        this.second=s;
+    }
+}
