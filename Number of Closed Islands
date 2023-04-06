@@ -1,0 +1,33 @@
+class Solution {
+    public int closedIsland(int[][] grid) {
+        if (grid.length < 3 || grid[0].length < 3) {
+            return 0;
+        }
+        int count=0;
+        //int vis[][]=new int[grid.length][grid[0].length];
+        for(int i=1;i<grid.length-1;i++){
+            for(int j=1;j<grid[0].length-1;j++){
+                if(grid[i][j]==0){
+                    if(island(grid,i,j)){
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+    public boolean island(int[][] grid,int i,int j){
+        if(grid[i][j]==1 || grid[i][j]==-1){
+            return true;
+        }
+        if(i==0 || i==grid.length-1 || j==0 || j==grid[0].length-1){
+            return false;
+        }
+        grid[i][j]=-1;
+        boolean left=island(grid,i,j-1);
+        boolean top=island(grid,i-1,j);
+        boolean right=island(grid,i,j+1);
+        boolean bottom=island(grid,i+1,j);
+        return left && top && right && bottom;
+    }
+}
