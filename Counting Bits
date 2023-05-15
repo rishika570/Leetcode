@@ -1,0 +1,12 @@
+class Solution {
+    public int[] countBits(int n) {
+      int a[]=new int[n+1];
+      int k=1;
+      a[0]=0;
+      for(int i=1;i<=n;i++){
+      a[k]=Integer.bitCount(i);
+          k++;
+      }
+        return a;
+    }
+}
