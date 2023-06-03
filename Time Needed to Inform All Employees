@@ -1,0 +1,22 @@
+class Solution {
+    public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {
+        List<List<Integer>> list=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            list.add(new ArrayList<>());
+        }
+        for(int i=0;i<n;i++){
+            if(manager[i]!=-1){
+                list.get(manager[i]).add(i);
+            }
+        }
+        return solve(headID,list,informTime);
+    }
+    public int solve(int head,List<List<Integer>> list,int[] inform){
+        int max=0;
+        for(int curr:list.get(head)){
+            int time=solve(curr,list,inform);
+            max=Math.max(max,time);
+        }
+        return max+inform[head];
+    }
+}
