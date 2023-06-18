@@ -1,0 +1,31 @@
+class Solution {
+    int mod=1000000007;
+    public int countPaths(int[][] grid) {
+        int n=grid.length;
+        int m=grid[0].length;
+        int res=0;
+        int[][] dp=new int[n+1][m+1];
+        for(int[] r:dp){
+            Arrays.fill(r,-1);
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                res=(res+solve(i,j,grid,-1,dp))%mod;
+            }
+        }
+        return res;
+    }
+    public int solve(int i,int j,int[][] grid,int prev,int[][] dp){
+        if(i<0 || i>=grid.length || j<0 || j>=grid[0].length || grid[i][j]<=prev){
+            return 0;
+        }
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        int l=solve(i,j-1,grid,grid[i][j],dp);
+        int r=solve(i,j+1,grid,grid[i][j],dp);
+        int t=solve(i-1,j,grid,grid[i][j],dp);
+        int b=solve(i+1,j,grid,grid[i][j],dp);
+        return dp[i][j]=(1+l+r+t+b)%mod;
+    }
+}
