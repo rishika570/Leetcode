@@ -1,0 +1,41 @@
+class Solution {
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
+        List<List<Pair>> adj=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int i=0;i<edges.length;i++){
+            int u=edges[i][0];
+            int v=edges[i][1];
+            double p=succProb[i];
+            adj.get(u).add(new Pair(v,p));
+            adj.get(v).add(new Pair(u,p));
+        }
+        Queue<Integer> q=new LinkedList<>();
+        double[] dis=new double[n];
+        Arrays.fill(dis,0.0);
+        dis[start]=1;
+        q.add(start);
+        while(!q.isEmpty()){
+            int curr=q.poll();
+            List<Pair> list=adj.get(curr);
+            for(Pair pair:list){
+                int nbr=pair.node;
+                double pr=dis[curr]*pair.prob;
+                if(pr>dis[nbr]){
+                    dis[nbr]=pr;
+                    q.add(nbr);
+                }
+            }
+        }
+        return dis[end];
+    }
+}
+class Pair{
+    int node;
+    double prob;
+    Pair(int node,double prob){
+        this.node=node;
+        this.prob=prob;
+    }
+}
