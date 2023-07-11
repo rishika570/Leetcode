@@ -1,0 +1,50 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+        List<Integer> res=new ArrayList<>();
+        HashMap<Integer,List<Integer>> map=new HashMap<>();
+        map.put(root.val,new ArrayList<>());
+        solve(map,root);
+        HashSet<Integer> vis=new HashSet<>();
+        distance(map,target.val,k,vis,res);
+        return res;
+    }
+    public void solve(HashMap<Integer,List<Integer>> map,TreeNode root){
+        if(root==null){
+            return;
+        }
+        if(root.left!=null){
+            map.get(root.val).add(root.left.val);
+            map.put(root.left.val,new ArrayList<>());
+            map.get(root.left.val).add(root.val);
+        }
+        if(root.right!=null){
+            map.get(root.val).add(root.right.val);
+            map.put(root.right.val,new ArrayList<>());
+            map.get(root.right.val).add(root.val);
+        }
+        solve(map,root.left);
+        solve(map,root.right);
+
+    }
+    public void distance(HashMap<Integer,List<Integer>> map,int curr,int k,HashSet<Integer> vis,List<Integer> res){
+        if(k<0 || vis.contains(curr)){
+            return;
+        }
+        if(k==0){
+            res.add(curr);
+        }
+        vis.add(curr);
+        for(int ngbr:map.get(curr)){
+            distance(map,ngbr,k-1,vis,res);
+        }
+    }
+}
