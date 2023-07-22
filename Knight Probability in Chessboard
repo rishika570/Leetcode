@@ -1,0 +1,37 @@
+class Solution {
+    public double knightProbability(int n, int k, int row, int column) {
+        double[][][] dp=new double[n][n][k+1];
+        for(double[][] a:dp){
+            for(double[] r:a){
+                for(int i=0;i<=k;i++){
+                    r[i]=-1;
+                }
+            }
+        }
+        return solve(n,k,row,column,dp);
+    }
+    public double solve(int n,int k,int r,int c,double[][][] dp){
+        if(r<0 || r>=n){
+            return 0;
+        }
+        if(c<0 || c>=n){
+            return 0;
+        }
+        if(k==0){
+            dp[r][c][k]=1;
+            return 1;
+        }
+        if(dp[r][c][k]!=-1){
+            return dp[r][c][k];
+        }
+        double one=solve(n,k-1,r+1,c+2,dp)/8;
+        double two=solve(n,k-1,r+1,c-2,dp)/8;
+        double three=solve(n,k-1,r-1,c+2,dp)/8;
+        double four=solve(n,k-1,r-1,c-2,dp)/8;
+        double five=solve(n,k-1,r+2,c+1,dp)/8;
+        double six=solve(n,k-1,r+2,c-1,dp)/8;
+        double seven=solve(n,k-1,r-2,c+1,dp)/8;
+        double eight=solve(n,k-1,r-2,c-1,dp)/8;
+        return dp[r][c][k]=(one+two+three+four+five+six+seven+eight);
+    }
+}
