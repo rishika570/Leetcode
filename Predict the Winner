@@ -1,0 +1,28 @@
+class Solution {
+    public boolean PredictTheWinner(int[] nums) {
+        int total=0;
+        for(int i:nums){
+            total+=i;
+        }
+        int[][] dp=new int[nums.length+1][nums.length+1];
+        for(int[] r:dp){
+            Arrays.fill(r,-1);
+        }
+        int max=solve(0,nums.length-1,nums,dp);
+        if(max>=(total-max)){
+            return true;
+        }
+        return false;
+    }
+    public int solve(int i,int j,int[] nums,int[][] dp){
+        if(i>j){
+            return 0;
+        }
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        int take_i=nums[i]+(Math.min(solve(i+2,j,nums,dp),solve(i+1,j-1,nums,dp)));
+        int take_j=nums[j]+(Math.min(solve(i,j-2,nums,dp),solve(i+1,j-1,nums,dp)));
+        return dp[i][j]=Math.max(take_i,take_j);
+    }
+}
