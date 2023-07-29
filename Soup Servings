@@ -1,0 +1,27 @@
+class Solution {
+    public double soupServings(int n) {
+        HashMap<String,Double> map=new HashMap<>();
+        if(n>5000){
+            return 1;
+        }
+       return solve(n,n,map); 
+    }
+    public double solve(int A,int B,HashMap<String,Double> map){
+        if(A<=0 && B>0){
+            return 1;
+        }
+        else if(A<=0 && B<=0){
+            return 0.5;
+        }
+        else if(B<=0){
+            return 0;
+        }
+        String key=A+","+B;
+        if(map.containsKey(key)){
+            return map.get(key);
+        }
+        double ans=0.25*(solve(A-100,B,map)+solve(A-75,B-25,map)+solve(A-50,B-50,map)+solve(A-25,B-75,map));
+        map.put(key,ans);
+        return ans;
+    }
+}
