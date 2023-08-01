@@ -1,0 +1,19 @@
+class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> res=new ArrayList<>();
+        List<Integer> list=new ArrayList<>();
+        solve(n,k,1,list,res);
+        return res;
+    }
+    public void solve(int n,int k,int i,List<Integer> list,List<List<Integer>> res){
+        if(list.size()==k){
+            res.add(new ArrayList<>(list));
+            return;
+        }
+        for(int j=i;j<=n;j++){
+            list.add(j);
+            solve(n,k,j+1,list,res);
+            list.remove(list.size()-1);
+        }
+    }
+}
