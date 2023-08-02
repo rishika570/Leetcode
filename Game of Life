@@ -1,0 +1,44 @@
+class Solution {
+    public void gameOfLife(int[][] board) {
+        int[][] board1=new int[board.length][board[0].length];
+        int n=board.length;
+        int m=board[0].length;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                board1[i][j]=board[i][j];
+            }
+        }
+        int[][] dir={{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1},{-1,-1}};
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                int live=0,dead=0;
+                for(int[] r:dir){
+                    int nextx=i+r[0];
+                    int nexty=j+r[1];
+                    if(nextx>=0 && nextx<n && nexty>=0 && nexty<m && board[nextx][nexty]==0)                     {
+                        dead++;
+                    }
+                    else if(nextx>=0 && nextx<n && nexty>=0 && nexty<m && board[nextx][nexty]==1){
+                       live++; 
+                    }
+                }
+                if(board[i][j]==1){
+                    if(live<2 || live>3){
+                        board1[i][j]=0;
+                    }
+                    
+                }
+                else if(board[i][j]==0){
+                    if(live==3){
+                        board1[i][j]=1;
+                    }
+                }
+            }
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                board[i][j]=board1[i][j];
+            }
+        }
+    }
+}
