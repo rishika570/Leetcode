@@ -1,0 +1,29 @@
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        HashMap<Character,String> map=new HashMap<>();
+        map.put('2',"abc");
+        map.put('3',"def");
+        map.put('4',"ghi");
+        map.put('5',"jkl");
+        map.put('6',"mno");
+        map.put('7',"pqrs");
+        map.put('8',"tuv");
+        map.put('9',"wxyz");
+        List<String> res=new ArrayList<>();
+        solve(res,digits,0,map,"");
+        return res;
+    }
+    public void solve(List<String> res,String digits,int ind,HashMap<Character,String> map,String ans){
+        if(ind==digits.length()){
+            if(ans.length()>0){
+            res.add(ans);}
+            ans="";
+            return;
+        }
+        String temp=map.get(digits.charAt(ind));
+        for(int i=0;i<temp.length();i++){
+           // ans+=map.get(digits.charAt(i));
+            solve(res,digits,ind+1,map,ans+temp.charAt(i));
+        }
+    }
+}
