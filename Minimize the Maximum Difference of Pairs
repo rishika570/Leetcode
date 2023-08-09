@@ -1,0 +1,33 @@
+class Solution {
+    public int minimizeMax(int[] nums, int p) {
+        Arrays.sort(nums);
+        int ans=Integer.MAX_VALUE;
+        int low=0,high=nums[nums.length-1]-nums[0];
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(solve(mid,nums,p,nums.length)){
+                ans=mid;
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }
+        return ans;
+    }
+    public boolean solve(int mid,int[] nums,int p,int n){
+        int c=0;
+        boolean flag=false;
+        for(int i=1;i<n;i++){
+            if(flag){
+                flag=false;
+                continue;
+            }
+            if(Math.abs(nums[i]-nums[i-1])<=mid){
+                flag=true;
+                c++;
+            }
+        }
+        return c>=p;
+    }
+}
