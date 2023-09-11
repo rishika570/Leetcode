@@ -1,0 +1,38 @@
+class Solution {
+    public List<List<Integer>> groupThePeople(int[] group) {
+      List<List<Integer>> res=new ArrayList<>();
+      HashMap<Integer,List<Integer>> map=new HashMap<>();
+        for(int i=0;i<group.length;i++){
+          if(!map.containsKey(group[i])){
+              List<Integer> ll=new ArrayList<>();
+              ll.add(i);
+              map.put(group[i],ll);
+          }  
+            else{
+                List<Integer> l=map.get(group[i]);
+                l.add(i);
+                map.put(group[i],l);
+            }
+        }
+        System.out.println(map);
+        for(Map.Entry<Integer,List<Integer>> entry:map.entrySet()){
+            List<Integer> list=entry.getValue();
+            int size=list.size();
+            int val=entry.getKey();
+             int n=size/val;
+            int i=0;
+            int j=1;
+            while(n-->0){
+                List<Integer> l1=new ArrayList<>();
+                while(i<val*j){
+                         l1.add(list.get(i));
+                         i++;
+                     }
+                    res.add(l1);
+                    j++;
+
+            }
+        }
+        return res;
+    }
+}
