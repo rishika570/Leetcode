@@ -1,0 +1,30 @@
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int sum=0;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+        }
+        if(sum%2!=0){
+            return false;
+        }
+        Boolean[][] dp=new Boolean[nums.length+1][sum+1];
+        return solve(nums,0,0,sum/2,dp);
+    }
+    public boolean solve(int[] nums,int idx,int sum,int tar,Boolean[][] dp){
+        if(idx==nums.length){
+            return false;
+        }
+        if(sum==tar){
+            return true;
+        }
+        if(sum>tar){
+            return false;
+        }
+        if(dp[idx][sum]!=null){
+            return dp[idx][sum];
+        }
+        boolean take=solve(nums,idx+1,sum+nums[idx],tar,dp);
+        boolean notake=solve(nums,idx+1,sum,tar,dp);
+        return dp[idx][sum]=take | notake;
+    }
+}
