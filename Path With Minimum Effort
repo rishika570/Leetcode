@@ -1,0 +1,28 @@
+class Solution {
+    public int minimumEffortPath(int[][] heights) {
+      PriorityQueue<int[]> pq=new PriorityQueue<int[]>((a,b)->a[2]-b[2]);
+      boolean[][] vis=new boolean[heights.length][heights[0].length];
+        pq.offer(new int[]{0,0,0});
+        int[][] dir={{0,-1},{-1,0},{0,1},{1,0}};
+        while(!pq.isEmpty()){
+            int[] curr=pq.poll();
+            int crow=curr[0];
+            int ccol=curr[1];
+            int eff=curr[2];
+            vis[crow][ccol]=true;
+            if(crow==heights.length-1 && ccol==heights[0].length-1){
+                return eff;
+            }
+            for(int[] d:dir){
+                int nrow=d[0]+crow;
+                int ncol=d[1]+ccol;
+                if(nrow<0 || ncol<0 || nrow>=heights.length || ncol>=heights[0].length || vis[nrow][ncol]){
+                    continue;
+                }
+                int neff=Math.abs(heights[crow][ccol]-heights[nrow][ncol]);
+                pq.offer(new int[]{nrow,ncol,Math.max(eff,neff)});
+            }
+        }
+        return -1;
+    }
+}
