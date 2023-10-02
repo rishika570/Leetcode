@@ -1,0 +1,26 @@
+class Solution {
+    public boolean winnerOfGame(String colors) {
+      int a=0,b=0,alice=0,bob=0;
+        for(int i=0;i<colors.length();i++){
+            if(colors.charAt(i)=='A'){
+                b=0;
+                a++;
+                if(a>=3){
+                    alice=alice+(a-2);
+                }
+             }
+            else{
+                a=0;
+                b++;
+                if(b>=3){
+                  bob=bob+(b-2);  
+                }
+             }
+            
+        }
+        if(alice>bob){
+            return true;
+        }
+        return false;
+    }
+}
