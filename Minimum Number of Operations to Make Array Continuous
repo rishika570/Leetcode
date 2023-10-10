@@ -1,0 +1,19 @@
+class Solution {
+    public int minOperations(int[] nums) {
+      HashSet<Integer> set=new HashSet<>();
+      for(int i=0;i<nums.length;i++){
+          set.add(nums[i]);
+      }
+        List<Integer> list=new ArrayList<>(set);
+        Collections.sort(list);
+        int end=0;
+        int max=Integer.MIN_VALUE;
+        for(int start=0;start<list.size();start++){
+            while(end<list.size() && list.get(end)<list.get(start)+nums.length){
+                end++;
+            }
+            max=Math.max(max,end-start);
+        }
+        return nums.length-max;
+    }
+}
