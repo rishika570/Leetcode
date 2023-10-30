@@ -1,0 +1,41 @@
+class Solution {
+    public int[] sortByBits(int[] arr) {
+        int[] ans=new int[arr.length];
+      Pair[] res=new Pair[arr.length];
+      for(int i=0;i<arr.length;i++){
+          Pair p=new Pair(0,0);
+          p.x=arr[i];
+          p.c=solve(arr[i]);
+          res[i]=p;
+      }  
+        Arrays.sort(res,(a,b)->{
+            if(a.c==b.c){
+                return a.x-b.x;
+            }
+            else{
+                return a.c-b.c;
+            }
+        });
+        for(int i=0;i<res.length;i++){
+            Pair p=res[i];
+            ans[i]=p.x;
+        }
+        return ans;
+    }
+    public int solve(int n){
+        int co=0;
+        while(n>0){
+            co+=(n & 1);
+            n>>=1;
+        }
+        return co;
+    }
+}
+class Pair{
+    int x;
+    int c;
+    Pair(int x,int c){
+        this.x=x;
+        this.c=c;
+    }
+}
