@@ -1,0 +1,20 @@
+class Solution {
+    public int countHomogenous(String s) {
+        
+        int i=0,j=1;
+        int mod=1000000007;
+        long count=0;
+        long n=0;
+        while(j<s.length()){
+            if(s.charAt(i)!=s.charAt(j)){
+               n=(j-i)%mod;
+                count+=((n*(n+1))/2)%mod;
+                i=j;
+            }
+            j++;
+        }
+        n=(j-i)%mod;
+        count+=((n*(n+1))/2)%mod;
+        return (int)count;
+    }
+}
