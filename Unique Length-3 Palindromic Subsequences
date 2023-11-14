@@ -1,0 +1,18 @@
+class Solution {
+    public int countPalindromicSubsequence(String s) {
+        int c=0;
+        int f=-1,l=-1;
+        for(char ch='a';ch<='z';ch++){
+            f=s.indexOf(ch);
+            l=s.lastIndexOf(ch);
+            if(f!=-1 && l!=-1 && f<l){
+                HashSet<Character> set=new HashSet<>();
+                for(int j=f+1;j<l;j++){
+                    set.add(s.charAt(j));
+                }
+                c+=set.size();
+            }
+        }
+        return c;
+    }
+}
