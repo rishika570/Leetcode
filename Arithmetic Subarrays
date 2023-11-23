@@ -1,0 +1,27 @@
+class Solution {
+    public List<Boolean> checkArithmeticSubarrays(int[] nums, int[] l, int[] r) {
+        List<Boolean> res=new ArrayList<>();
+        for(int i=0;i<l.length;i++){
+            int st=l[i];
+            int en=r[i];
+            int a[]=new int[en-st+1];
+            int k=0;
+            for(int j=st;j<=en;j++){
+                a[k]=nums[j];
+                k++;
+            }
+            Arrays.sort(a);
+            res.add(isArithmetic(a));
+        }
+        return res;
+    }
+    public boolean isArithmetic(int[] a){
+        int diff=a[1]-a[0];
+        for(int i=1;i<a.length-1;i++){
+            if((a[i+1]-a[i])!=diff){
+                return false;
+            }
+        }
+        return true;
+    }
+}
